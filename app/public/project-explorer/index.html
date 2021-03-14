@@ -8,12 +8,15 @@
     <body>
         <nav class="navbar navbar-expand-md navbar-dark bg-primary">
             <span class="navbar-brand">Project Explorer</span>
-            <form class="form-inline" name="searchForm">
-                <input class="form-control" type="text" value="Search Projects">
-                <input class="btn btn-primary btn-outline-light" type="button" value="Search">
-                <input class="btn btn-primary" type="button" value="Submit">
-            </form>
-            <div class="navbar-collapse">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#content" aria-controls="content" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="content">
+                <form class="form-inline" name="searchForm">
+                    <input class="form-control" type="text" value="Search Projects">
+                    <input class="btn btn-primary btn-outline-light" type="button" value="Search">
+                    <input class="btn btn-primary" type="button" value="Submit">
+                </form>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="signup.html">Signup</a>
@@ -24,42 +27,80 @@
                 </ul>
             </div>
         </nav>
-        <main>
-            <p>This application allows you to explore various academic projects. You can search, upload and browse projects</p>
-            <h3>Project List</h3>
-            <section>
-                <h4>Project 1</h4>
-                <ul>
-                    <li>Name: Project 1</li>
-                    <li>Description: 
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cursus turpis massa tincidunt dui ut ornare.
-                    </li>
-                    <li>Program: Computer Science</li>
-                    <li>Year: 2018</li>
-                </ul>
-            </section>
-            <section>
-                <h4>Project 2</h4>
-                <ul>
-                    <li>Name: Project 2</li>
-                    <li>Description: 
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cursus turpis massa tincidunt dui ut ornare.
-                    </li>
-                    <li>Program: Computer Engineering</li>
-                    <li>Year: 2019</li>
-                </ul>
-            </section>
-            <section>
-                <h4>Project 3</h4>
-                <ul>
-                    <li>Name: Project 3</li>
-                    <li>Description: 
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cursus turpis massa tincidunt dui ut ornare.
-                    </li>
-                    <li>Program: Computers</li>
-                    <li>Year: 2020</li>
-                </ul>
-            </section>
+        
+        <main class="container">
+            <main class="jumbotron">
+                <h1>Welcome to Project Explorer</h1>
+                <p>
+                    Project Explorer is a repository tool for final year projects accross all departments at your institution. You can submit your project and search projects submitted by others to learn from
+                </p>
+                <a href="#"><input class="btn btn-primary" type="button" value="Get Started"></a>
+                <a href="#"><input class="btn btn-secondary" type="button" value="Login"></a>
+            </main>
+            <div class="row card-deck">
+                <section class="card">
+                    <div class="card-body">
+                        <h4 class="card-title text-primary">Project Title</h4>
+                        <h5 class="card-subtitle text-muted">Author 1, Author 2</h5>
+                        <p class="card-text">
+                            Some quick example text to build on the card title and make up the bulk of the card's content.
+                        </p>
+                        <p>
+                            <a class="card-link" href="#">#html</a>
+                            <a class="card-link" href="#">#css</a>
+                            <a class="card-link" href="#">#javascript</a>
+                        </p>
+                    </div>
+                </section>
+                <section class="card">
+                    <div class="card-body">
+                        <h4 class="card-title text-primary">Project Title</h4>
+                        <h5 class="card-subtitle text-muted">Author 1, Author 2</h5>
+                        <p class="card-text">
+                            Some quick example text to build on the card title and make up the bulk of the card's content.
+                        </p>
+                        <p>
+                            <a class="card-link" href="#">#html</a>
+                            <a class="card-link" href="#">#css</a>
+                            <a class="card-link" href="#">#javascript</a>
+                        </p>
+                    </div>
+                </section>
+                <section class="card">
+                    <div class="card-body">
+                        <h4 class="card-title text-primary">Project Title</h4>
+                        <h5 class="card-subtitle text-muted">Author 1, Author 2</h5>
+                        <p class="card-text">
+                            Some quick example text to build on the card title and make up the bulk of the card's content.
+                        </p>
+                        <p>
+                            <a class="card-link" href="#">#html</a>
+                            <a class="card-link" href="#">#css</a>
+                            <a class="card-link" href="#">#javascript</a>
+                        </p>
+                    </div>
+                </section>
+                <section class="card">
+                    <div class="card-body">
+                        <h4 class="card-title text-primary">Project Title</h4>
+                        <h5 class="card-subtitle text-muted">Author 1, Author 2</h5>
+                        <p class="card-text">
+                            Some quick example text to build on the card title and make up the bulk of the card's content.
+                        </p>
+                        <p>
+                            <a class="card-link" href="#">#html</a>
+                            <a class="card-link" href="#">#css</a>
+                            <a class="card-link" href="#">#javascript</a>
+                        </p>
+                    </div>
+                </section>
+            </div>
+            <br>
+            <footer class="container">
+                <div class="row justify-content-end">
+                    <p class="text-muted">Project Explorer &copy; 2020 -<strong>Edconnect</strong></p>
+                </div>
+            </footer>
         </main>
     </body>
 </html>
