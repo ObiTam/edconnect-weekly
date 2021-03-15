@@ -2,52 +2,100 @@
 <html>
     <head>
         <meta charset="utf-8" />
+        <link href="CSS/bootstrap.min.css" rel="stylesheet">
         <title>Search</title>
     </head>
     <body>
-        <header>
-            <h1>Project Explorer</h1>
-            <h2>One Stop Database for Academic Projects</h2>
-        </header>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="search.html">Projects</a>
-            <a href="login.html">Login</a>
-            <a href="register.html">Register</a>
+        <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+            <a class="navbar-brand" href="index.html">Project Explorer</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#content" aria-controls="content" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="content">
+                <form class="form-inline" name="searchForm">
+                    <input class="form-control" type="text" value="Search Projects">
+                    <input class="btn btn-primary btn-outline-light" type="button" value="Search">
+                    <input class="btn btn-primary" type="button" value="Submit">
+                </form>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="register.html">Signup</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">Login</a>
+                    </li>
+                </ul>
+            </div>
         </nav>
-        <main>
-            <section>
-                <h3>Search Project By</h3>
-                <form name="searchForm">
-                    <p><input type="text" name="searchTerm" value="Project Name, Authors, Abstract, Tags" /></p>
-                    <p>Search By:
-                        <br>
-                        <select name="searchType">
+        <br>
+
+        <main class="container">
+            <section class="container">
+                <div class="row">
+                    <h3>Project Gallery</h3>
+                </div>
+                <br>
+
+                <form class="form-group row bg-light p-3" name="searchForm">
+                    <input class="form-control form-control-lg col-8" type="text" name="searchTerm" value="Project Name, Authors, Abstract, Tags" />
+                    <div class="col-4 form-inline">
+                        <label class="col-form-label col-form-label-lg">Search by </label>
+                        <select class="form-control form-control-lg" name="searchType">
                             <option value="Name">Name</option>
                             <option value="Abstract">Abstract</option>
                             <option value="Authors">Authors</option>
                             <option value="Tags">Tags</option>
                         </select>
-                    </p>
-                    <input type="submit" value="Search"/>
+                        <input class="btn btn-primary btn-lg"type="submit" value="Submit"/>
+                    </div>
                 </form>
             </section>
-            <section>
-                <h2>Search Result</h2>
-                <div>
-                    <h4>Project 1</h4>
-                    <ul>
-                        <li>Name: Project 1</li>
-                        <li>Description: 
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cursus turpis massa tincidunt dui ut ornare.
-                        </li>
-                        <li>Program: Computer Science</li>
-                        <li>Authors: John Doe, Jane Doe</li>
-                        <li>Tags: #Asphyxia, #GSW</li>
-                        <li>Year: 2018</li>
-                    </ul>
+            <br>
+
+            <section class="container">
+                <div class="row">
+                    <h4>All Projects <span class="text-muted">(0 results)</span></h4>
+                </div>
+                <br>
+
+                <div class="row card-deck">
+                    <section class="card col-sm-3">
+                        <div class="card-body">
+                            <h4 class="card-title text-primary">Project Title</h4>
+                            <h5 class="card-subtitle text-muted">Author 1, Author 2</h5>
+                            <p class="card-text">
+                                Some quick example text to build on the card title and make up the bulk of the card's content.
+                            </p>
+                            <p>
+                                <a class="card-link" href="#">#html</a>
+                                <a class="card-link" href="#">#css</a>
+                                <a class="card-link" href="#">#javascript</a>
+                            </p>
+                        </div>
+                    </section>
+                    <section class="card col-sm-3">
+                        <div class="card-body">
+                            <h4 class="card-title text-primary">Project Title</h4>
+                            <h5 class="card-subtitle text-muted">Author 1, Author 2</h5>
+                            <p class="card-text">
+                                Some quick example text to build on the card title and make up the bulk of the card's content.
+                            </p>
+                            <p>
+                                <a class="card-link" href="#">#html</a>
+                                <a class="card-link" href="#">#css</a>
+                                <a class="card-link" href="#">#javascript</a>
+                            </p>
+                        </div>
+                    </section>
                 </div>
             </section>
         </main>
+
+        <br>
+        <footer class="container">
+            <div class="row justify-content-end">
+                <p class="text-muted">Project Explorer &copy; 2020 -<strong>Edconnect</strong></p>
+            </div>
+        </footer>
     </body>
 </html>
