@@ -30,25 +30,21 @@
         <br>
 
         <main class="container">
-            <section class="container">
-                <div class="row">
-                    <h3>Project Gallery</h3>
+            <h3>Project Gallery</h3>
+            <br>
+            <form class="form-group form-row bg-light p-3" name="searchForm">
+                <input class="form-control form-control-lg col-8" type="text" name="searchTerm" value="Search project name, authors, abstract, tags" />
+                <div class="col-4 form-inline">
+                    <label class="col-form-label col-form-label-lg">Search by </label>
+                    <select class="form-control form-control-lg" name="searchType">
+                        <option value="Name">Name</option>
+                        <option value="Abstract">Abstract</option>
+                        <option value="Authors">Authors</option>
+                        <option value="Tags">Tags</option>
+                    </select>
+                    <button class="btn btn-primary btn-lg" type="button">Submit</button>
                 </div>
-                <br>
-                <form class="form-group form-row bg-light p-3" name="searchForm">
-                    <input class="form-control form-control-lg col-8" type="text" name="searchTerm" value="Search project name, authors, abstract, tags" />
-                    <div class="col-4 form-inline">
-                        <label class="col-form-label col-form-label-lg">Search by </label>
-                        <select class="form-control form-control-lg" name="searchType">
-                            <option value="Name">Name</option>
-                            <option value="Abstract">Abstract</option>
-                            <option value="Authors">Authors</option>
-                            <option value="Tags">Tags</option>
-                        </select>
-                        <button class="btn btn-primary btn-lg"type="button">Submit</button>
-                    </div>
-                </form>
-            </section>
+            </form>
             <br>
 
             <section class="container">
