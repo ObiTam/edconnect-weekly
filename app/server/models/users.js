@@ -19,19 +19,31 @@ class User {
 
 class Users extends DataModel {
     authenticate(email, password) {
-
+        user = this.getByEmail(email)
+        return user.password === password
     }
 
     getByEmail(email) {
-
+        index = this.data.findIndex(user => user.email == email)
+        return index != -1 ? this.data.index : null
     }
 
     getByMatricNumber(matricNumber) {
-
+        index = this.data.findIndex(user => user.matricNumber == matricNumber)
+        return index != -1 ? this.data.index : null
     }
 
     validate(obj) {
-
+        if (!obj.id || !obj.firstname || !obj.lastname || !obj.email || !obj.password || !obj.matricNumber || !obj.program || !obj.graduationYear){
+            return false
+        }
+        if (this.getByEmail(obj) || this.getByMatricNumber(obj)){
+            return false
+        }
+        if (obj.password.length < 7){
+            return false
+        }
+        return true
     }
 }
 
