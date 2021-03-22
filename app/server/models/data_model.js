@@ -8,8 +8,8 @@ class DataModel {
     }
 
     getById(id) {
-        index = this.data.findIndex(object => object.id === id)
-        if (index != -1){
+        const index = this.data.findIndex(object => object.id === id)
+        if (index == -1){
             return null
         }
         return this.data[index]
@@ -24,16 +24,18 @@ class DataModel {
     }
 
     update(obj, id) {
-        index = this.data.findIndex(object => object.id === id)
+        const index = this.data.findIndex(object => object.id === id)
         if (index == -1){
             return false
         }
-        this.data[index] = {...this.data[index], ...obj}
+        for (let each in obj){
+            this.data[index][each] = obj[each]
+        }
         return true
     }
 
     delete(id) {
-        index = this.data.findIndex(object => object.id === id)
+        const index = this.data.findIndex(object => object.id === id)
         if (index == -1){
             return false
         }

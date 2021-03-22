@@ -16,7 +16,7 @@ class Projects extends DataModel {
         if (!obj.id || !obj.name || !obj.abstract || !obj.authors || !obj.tags || !obj.createdBy){
             return false
         }
-        if (!obj.authors.isArray || !obj.tags.isArray){
+        if (!Array.isArray(obj.authors) || !Array.isArray(obj.tags)){
             return false
         }
         return true
