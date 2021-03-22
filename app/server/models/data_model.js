@@ -8,7 +8,11 @@ class DataModel {
     }
 
     getById(id) {
-
+        index = this.data.findIndex(object => object.id === id)
+        if (index != -1){
+            return null
+        }
+        return this.data[index]
     }
 
     save(obj) {
@@ -20,11 +24,21 @@ class DataModel {
     }
 
     update(obj, id) {
-
+        index = this.data.findIndex(object => object.id === id)
+        if (index == -1){
+            return false
+        }
+        this.data[index] = {...this.data[index], ...obj}
+        return true
     }
 
     delete(id) {
-
+        index = this.data.findIndex(object => object.id === id)
+        if (index == -1){
+            return false
+        }
+        this.data.splice(index, 1)
+        return true
     }
 
     // this method will be overriden in the sub classes
