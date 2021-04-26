@@ -23,19 +23,13 @@ class Projects extends DataModel {
         if (!obj.abstract){
             this.errors.push("abstract should not be empty")
         }
-        if (!obj.authors){
-            this.errors.push("authors should not be empty")
-        }
-        if (!obj.tags){
-            this.errors.push("tags should not be empty")
-        }
         if (!obj.createdBy){
             this.errors.push("createdby should not be empty")
         }
-        if (!Array.isArray(obj.authors)){
+        if (!obj.authors || !Array.isArray(obj.authors)){
             this.errors.push("Authors should be an array")
         } 
-        if (!Array.isArray(obj.tags)){
+        if (!obj.tags || !Array.isArray(obj.tags)){
             this.errors.push("Tags should be an array")
         }
         if (this.errors.length > 0){
