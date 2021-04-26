@@ -27,7 +27,7 @@ class Projects extends DataModel {
             this.errors.push("authors should not be empty")
         }
         if (!obj.tags){
-            obj.erros.push("tags should not be empty")
+            obj.errors.push("tags should not be empty")
         }
         if (!obj.createdBy){
             this.errors.push("createdby should not be empty")
