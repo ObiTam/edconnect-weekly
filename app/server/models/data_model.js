@@ -1,6 +1,7 @@
 class DataModel {
     constructor() {
         this.data = [];
+        this.errors = []
     }
 
     getAll() {
@@ -8,7 +9,11 @@ class DataModel {
     }
 
     getById(id) {
-
+        const index = this.data.findIndex(object => object.id === id)
+        if (index == -1){
+            return null
+        }
+        return this.data[index]
     }
 
     save(obj) {
@@ -20,11 +25,23 @@ class DataModel {
     }
 
     update(obj, id) {
-
+        const index = this.data.findIndex(object => object.id === id)
+        if (index == -1){
+            return false
+        }
+        for (let each in obj){
+            this.data[index][each] = obj[each]
+        }
+        return true
     }
 
     delete(id) {
-
+        const index = this.data.findIndex(object => object.id === id)
+        if (index == -1){
+            return false
+        }
+        this.data.splice(index, 1)
+        return true
     }
 
     // this method will be overriden in the sub classes
