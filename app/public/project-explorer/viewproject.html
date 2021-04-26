@@ -3,46 +3,92 @@
     <head>
         <meta charset="utf-8" />
         <title>View Project</title>
+        <link href="CSS/bootstrap.min.css" rel="stylesheet">
     </head>
     <body>
-        <header>
-            <h1>Project Explorer</h1>
-            <h2>One Stop Database for Academic Projects</h2>
-        </header>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="search.html">Projects</a>
-            <a href="login.html">Login</a>
-            <a href="register.html">Register</a>
-        </nav>
-        <main>
-            <section>
-                <h3>Project 1</h3>
-                <a href="editproject.html">Edit Project</a>
-                <ul>
-                    <li>Created by: Jane Doe</li>
-                    <li>Date Created: 00/00/0000</li> 
-                    <li>Last Updated: 01/01/0001</li>
-                </ul>
-            </section>
-            <section>
-                <h3>Project Abstract</h3>
-                <div>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cursus turpis massa tincidunt dui ut ornare.
-                </div>
-            </section>
-            <section>
-                <h3>Project Details</h3>
-                <ul>
-                    <li>Author: John Doe, Jane Doe</li>
-                    <li>Tags: #Asphyxia, #GSW</li> 
-                    <li>
-                        Project Files: 
-                        <a href="index.html">File 1</a>.
-                        <a href="index.html">File 1</a>
+        <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+            <a class="navbar-brand" href="index.html">Project Explorer</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#content" aria-controls="content" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="content">
+                <form class="form-inline" name="searchForm">
+                    <input class="form-control" type="text" value="Search Projects">
+                    <button class="btn btn-primary btn-outline-light" type="button" value="Search" placeholder="search">Search</button>
+                    <input class="btn btn-primary" type="submit" value="Submit">
+                </form>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="register.html">Signup</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">Login</a>
                     </li>
                 </ul>
+            </div>
+        </nav>
+        <br>
+
+        <main class="container">
+            <h1>Project 1</h1>
+            <section class="row bg-light p-3">
+                <div class="col">Created by <br>Jane Doe</div>
+                <div class="col">Date Created <br>00/00/0000</div> 
+                <div class="col">Last Updated <br>01/01/0001</div>
+                <a class="btn btn-primary justify-self-end" href="editproject.html">Edit Project</a>
             </section>
+            <br>
+
+            <div class="row">
+                <section class="col">
+                    <h4>Project Abstract</h4>
+                    <br>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </p>
+                    <br>
+                    <form class="formgroup" name="comments">
+                        <div class="form-group">
+                            <label class="form-label">Project Name</label>
+                            <textarea class="form-control" name="abstract" placeholder="Leave a comment."></textarea>
+                        </div>
+                        <input class="btn btn-primary" type="submit"/>
+                    </form>
+                    <br>
+                    <div class="card">
+                        <div class="card-body text-center">
+                            No comments added yet
+                        </div>
+                    </div>
+                </section>
+
+                <section class="col">
+                    <h4>Project Details</h4>
+                    <div class="card">
+                        <h5 class="card-header">Author(s)</h5>
+                        <div class="card-body">
+                            John Doe
+                        </div>
+                        <div class="card-footer">
+                            <a href="#" class="card-link">#web</a>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="card">
+                        <div class="card-header">Project files</div>
+                        <div class="card-body text-center">
+                            No files uploaded yet
+                        </div>
+                    </div>
+                </section>
+            </div>
         </main>
+
+        <br>
+        <footer class="container">
+            <div class="row justify-content-end">
+                <p class="text-muted">Project Explorer &copy; 2020 -<strong>Edconnect</strong></p>
+            </div>
+        </footer>
     </body>
 </html>
