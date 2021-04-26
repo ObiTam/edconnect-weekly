@@ -38,8 +38,7 @@ class Projects extends DataModel {
         if (!Array.isArray(obj.tags)){
             this.errors.push("Tags should be an array")
         }
-        
-        if (this.errors.length>0){
+        if (this.errors.length > 0){
             return false
         }
         else{
