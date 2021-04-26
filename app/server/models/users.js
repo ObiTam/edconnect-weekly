@@ -34,16 +34,47 @@ class Users extends DataModel {
     }
 
     validate(obj) {
-        if (!obj.id || !obj.firstname || !obj.lastname || !obj.email || !obj.password || !obj.matricNumber || !obj.program || !obj.graduationYear){
-            return false
+        this.errors = []
+        if (!obj.id){
+            this.errors.push("id should not be empty")
         }
-        if (this.getByEmail(obj.email) || this.getByMatricNumber(obj.matricNumber)){
-            return false
+        if (!obj.firstname){
+            this.errors.push("firstname should not be empty")
+        }
+        if (!obj.lastname){
+            this.errors.push("lastname should not be empty")
+        }
+        if (!obj.email){
+            this.errors.push("email should not be empty")
+        }
+        if (!obj.password){
+            this.errors.push("password should not be empty")
+        }
+        if (!obj.matricNumber){
+            this.errors.push("matric number should not be empty")
+        }
+        if (!obj.program){
+            this.errors.push("program should not be empty")
+        }
+        if (!obj.graduationYear){
+            this.errors.push("graduation year should not be empty")
+        }
+        if (this.getByEmail(obj.email)){
+            this.errors.push("A user with email address already exists")
+        }
+        if (this.getByMatricNumber(obj.matricNumber)){
+            this.errors.push("A user with specified matric number already exists")
         }
         if (obj.password.length < 7){
+            this.errors.push("Password should have atleast 7 characters")
+        }
+        
+        if (this.errors.length > 0){
             return false
         }
-        return true
+        else{
+            return true
+        }
     }
 }
 
