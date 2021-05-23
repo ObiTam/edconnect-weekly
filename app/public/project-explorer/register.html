@@ -30,22 +30,24 @@
         <br>
         <main class="container">
             <div class="w-75 mx-auto">
-                <form class="form-group"> 
+                <form class="form-group" id="signupForm"> 
                     <h1>Sign up</h1>
+                    <div class="alert alert-danger" style="display: none;" id="alertDiv" role="alert">
+                    </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label class="form-label">First Name:</label>
-                            <input class="form-control" type="text" name="firstName" value="First name">
+                            <input class="form-control" type="text" name="firstname" placeholder="First name">
                         </div>
                         <div class="form-group col-md-6">
                             <label class="form-label">Last Name:</label>
-                            <input class="form-control" type="text" name="lastName" value="Last name">                    
+                            <input class="form-control" type="text" name="lastname" placeholder="Last name">                    
                         </div>
                     </div>    
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label class="form-label">Email Address:</label>
-                            <input class="form-control" type="email" name="email" value="Your Email address">
+                            <input class="form-control" type="email" name="email" placeholder="Your Email address">
                         </div>
                         <div class="form-group col-md-6">
                             <label class="form-label">Password:</label>
@@ -61,7 +63,7 @@
                         </div>
                         <div class="form-group col-md-3">
                             <label class="form-label">Matriculation number:</label> 
-                            <input class="form-control" type="text" name="matricNumber" value="e.g. 140403012">
+                            <input class="form-control" type="text" name="matricNumber" placeholder="e.g. 140403012">
                         </div>
                         <div class="form-group col-md-3">
                             <label class="form-label">Graduation year:</label>
@@ -71,7 +73,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-primary" type="button">Sign Up</button>
+                        <button class="btn btn-primary" type="button" id="signupButton">Sign Up</button>
                     </div>
                 </form>
             </div>
