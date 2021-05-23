@@ -90,15 +90,14 @@ async function signupUser(){
     const names = ["firstname", "lastname", "email", "password", "matricNumber", "program", "graduationYear"]
     
     names.forEach((name) => {
-        document.getElementsByName(name).forEach((el) => {
-            data[name] = el.value
-            if (el.tagName == "INPUT"){
-                el.value = ""
-            }
-            else{
-                el.getElementsByTagName('option')[0].selected = "selected"
-            }
-        })
+        el = document.getElementById(name)
+        data[name] = el.value
+        if (el.tagName == "INPUT"){
+            el.value = ""
+        }
+        else{
+            el.getElementsByTagName('option')[0].selected = "selected"
+        }
     })
 
     console.log(data)
