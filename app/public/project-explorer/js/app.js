@@ -70,9 +70,7 @@ async function postUserData(data){
             else{
                 alert = document.getElementById("alertDiv")
                 data.errors.forEach((e) => {
-                    newTag = document.createElement('p')
-                    newTag.textContent = e
-                    alert.appendChild(newTag)
+                    alert.innerHTML += e + "<br>"
                 })
                 alert.style.display = "block"
                 throw new Error("This request was bad \n status: " + data.status + " \n")
@@ -83,6 +81,11 @@ async function postUserData(data){
 
 async function signupUser(){
     console.log('clicked')
+
+    alert = document.getElementById('alertDiv')
+    alert.style.display = "none"
+    alert.innerHTML= ""
+
     let data = {}
     const names = ["firstname", "lastname", "email", "password", "matricNumber", "program", "graduationYear"]
     
