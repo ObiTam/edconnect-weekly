@@ -66,7 +66,7 @@ class Users extends DataModel {
             this.errors.push("A user with specified matric number already exists")
         }
         if (obj.password.length < 7){
-            this.errors.push("Password should have atleast 7 characters")
+            this.errors.push("Password should have at least 7 characters")
         }
         
         if (this.errors.length > 0){
