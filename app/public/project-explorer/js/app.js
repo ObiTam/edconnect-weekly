@@ -156,26 +156,28 @@ async function getDetails(uid){
         )
 }
 
-async function checkLoggedIn(){
+function checkLoggedIn(){
     cookies = document.cookie.split('; ')
     for (let i = 0; i < cookies.length; i++){
         data = cookies[i].split('=')
         if (data[0] === 'uid' && data[1]){
             uid = data[1]
-            await getDetails(uid)
+            getDetails(uid)
             break
         }
     }
 }
 
-window.onload = () => {
-    checkLoggedIn()
-    document.getElementById('logout').addEventListener("click", switchToLoggedOut)
-}
-
-if (window.location.pathname.includes("register.html")){
+function register(){
     console.log('see')
     document.getElementById('signupButton').addEventListener('click', signupUser)
     updatePrograms()
     updateGraduationYears()
+}
+
+window.onload = () => {
+    checkLoggedIn()
+    document.getElementById('logout').addEventListener("click", switchToLoggedOut)
+    
+    if (window.location.pathname.includes("register.html")){register()}
 }
