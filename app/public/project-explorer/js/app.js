@@ -65,7 +65,7 @@ async function postUserData(data){
                 console.log(data)
                 document.cookie = "uid=" + data.data.id
                 console.log(document.cookie)
-                window.setTimeout(function(){ window.location = "/project-explorer/index.html"}, 5000)
+                window.location = "/project-explorer/index.html"
             }
             else{
                 alert = document.getElementById("alertDiv")
