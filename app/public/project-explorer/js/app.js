@@ -107,7 +107,68 @@ async function signupUser(){
     console.log('done')
 }
 
-if (window.location.pathname === "/project-explorer/register.html"){
+function switchToLoggedIn(){
+    document.getElementById('signup').style.display = 'none'
+    document.getElementById('logout').style.display = 'block'
+    document.getElementById('login').style.display = 'none'
+    document.getElementById('username').style.display = 'block'
+}
+
+function switchToLoggedOut(){
+    document.getElementById('signup').style.display = 'block'
+    document.getElementById('logout').style.display = 'none'
+    document.getElementById('login').style.display = 'block'
+    document.getElementById('username').style.display = 'none'
+    document.cookie = 'uid=; expires=Thu 01 Jan 1970T00:00:00Z;' 
+    console.log(done)
+}
+
+async function getDetails(uid){
+    let req = new Request("/api/users/" + uid, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+
+    await fetch(req)
+        .then(response => {
+            console.log(response)
+            if (response.status == '200'){
+                return response.json()
+            }
+            else{
+                throw new Error('invalid user id')
+            }
+        })
+        .then(data => {
+            console.log('gotten details')
+            document.getElementById('username').textContent += ', ' + data.firstname
+            switchToLoggedIn()
+        })
+        .catch(
+            e => console.log(e)
+        )
+}
+
+function checkLoggedIn(){
+    cookies = document.cookie.split('; ')
+    for (let i = 0; i < cookies.length; i++){
+        data = cookies[i].split('=')
+        if (data[0] === 'uid' && data[1]){
+            uid = data[1]
+            getDetails(uid)
+            break
+        }
+    }
+}
+
+if (window.location.pathname.includes("index.html")){
+    checkLoggedIn()
+    document.getElementById('logout').addEventListener("click", switchToLoggedOut)
+}
+
+if (window.location.pathname.includes("register.html")){
     console.log('see')
     document.getElementById('signupButton').addEventListener('click', signupUser)
     updatePrograms()
