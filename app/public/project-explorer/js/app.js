@@ -162,7 +162,7 @@ function checkLoggedIn(){
         data = cookies[i].split('=')
         if (data[0] === 'uid' && data[1]){
             uid = data[1]
-            getDetails(uid)
+            await getDetails(uid)
             break
         }
     }
