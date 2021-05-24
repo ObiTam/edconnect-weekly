@@ -168,11 +168,76 @@ function checkLoggedIn(){
     }
 }
 
+async function checkLoginData(data){
+    let req = new Request("/api/login", {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+
+    await fetch(req)
+        .then(response => {
+            if (response.status === 200){
+                console.log("request ok")
+                return response.json()
+            }
+            else{
+                console.log("request bad")
+                return response.json()
+            }
+        })
+        .then(data => {
+            if(data.status === 'ok'){
+                console.log(data)
+                document.cookie = "uid=" + data.data.id
+                console.log(document.cookie)
+                window.location = "/project-explorer/index.html"
+            }
+            else{
+                alert = document.getElementById("alertDiv")
+                alert.innerHTML = "Invalid email/password"
+                alert.style.display = "block"
+                throw new Error("This request was bad \n status: " + data.status + " \n")
+            }
+        })
+        .catch(e => console.log(e))
+}
+
+async function loginUser(){
+    console.log('clicked')
+
+    alert = document.getElementById('alertDiv')
+    alert.style.display = "none"
+    alert.innerHTML= ""
+
+    let data = {}
+    const names = ["email", "password"]
+    
+    names.forEach((name) => {
+        el = document.getElementById(name)
+        data[name] = el.value
+        el.value = ""
+    })
+
+    console.log(data)
+
+    await checkLoginData(data)
+
+    console.log('done')
+}
+
 function register(){
-    console.log('see')
+    console.log('register page')
     document.getElementById('signupButton').addEventListener('click', signupUser)
     updatePrograms()
     updateGraduationYears()
+}
+
+function login(){
+    console.log('login page')
+    document.getElementById('loginButton').addEventListener('click', loginUser)
 }
 
 window.onload = () => {
@@ -180,4 +245,5 @@ window.onload = () => {
     document.getElementById('logout').addEventListener("click", switchToLoggedOut)
     
     if (window.location.pathname.includes("register.html")){register()}
+    if (window.location.pathname.includes("login.html")){login()}
 }
