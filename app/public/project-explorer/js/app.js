@@ -134,17 +134,22 @@ async function getDetails(uid){
     await fetch(req)
         .then(response => {
             console.log(response)
-            if (response.status == '200'){
+            if (response.status === 200){
                 return response.json()
+            }
+            else{
+                throw new Error('invalid request')
+            }
+        })
+        .then(data => {
+            console.log(data)
+            if (data){
+                document.getElementById('username').textContent += ', ' + data.firstname
+                switchToLoggedIn()
             }
             else{
                 throw new Error('invalid user id')
             }
-        })
-        .then(data => {
-            console.log('gotten details')
-            document.getElementById('username').textContent += ', ' + data.firstname
-            switchToLoggedIn()
         })
         .catch(
             e => console.log(e)
@@ -163,7 +168,7 @@ function checkLoggedIn(){
     }
 }
 
-if (window.location.pathname.includes("index.html")){
+window.onload = () => {
     checkLoggedIn()
     document.getElementById('logout').addEventListener("click", switchToLoggedOut)
 }
