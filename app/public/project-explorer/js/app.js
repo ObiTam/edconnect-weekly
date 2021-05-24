@@ -156,7 +156,7 @@ async function getDetails(uid){
         )
 }
 
-function checkLoggedIn(){
+async function checkLoggedIn(){
     cookies = document.cookie.split('; ')
     for (let i = 0; i < cookies.length; i++){
         data = cookies[i].split('=')
