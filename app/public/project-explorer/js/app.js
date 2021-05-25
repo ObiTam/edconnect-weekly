@@ -1,4 +1,4 @@
-function updatePrograms(){   
+async function updatePrograms(){   
     let req = new Request("/api/programs", {
         method: 'GET',
         headers: {
@@ -6,7 +6,7 @@ function updatePrograms(){
         }
     })
 
-    fetch(req)
+    await fetch(req)
         .then(response => response.json())
         .then(data => {
             console.log('gotten programs')
@@ -19,7 +19,7 @@ function updatePrograms(){
         })
 }
 
-function updateGraduationYears(){   
+async function updateGraduationYears(){   
     let req = new Request("/api/graduationYears", {
         method: 'GET',
         headers: {
@@ -27,7 +27,7 @@ function updateGraduationYears(){
         }
     })
 
-    fetch(req)
+    await fetch(req)
         .then(response => response.json())
         .then(data => {
             console.log('gotten years')
@@ -40,7 +40,7 @@ function updateGraduationYears(){
         })
 }
 
-function postUserData(data){
+async function postUserData(data){
     let req = new Request("/api/register", {
         method: 'POST',
         body: JSON.stringify(data),
@@ -49,7 +49,7 @@ function postUserData(data){
         }
     })
 
-    fetch(req)
+    await fetch(req)
         .then(response => {
             if (response.status === 200){
                 console.log("request ok")
@@ -79,7 +79,7 @@ function postUserData(data){
         .catch(e => console.log(e))
 }
 
-function signupUser(){
+async function signupUser(){
     console.log('clicked')
 
     alert = document.getElementById('alertDiv')
@@ -102,7 +102,7 @@ function signupUser(){
 
     console.log(data)
 
-    postUserData(data)
+    await postUserData(data)
 
     console.log('done')
 }
@@ -123,7 +123,7 @@ function switchToLoggedOut(){
     console.log(done)
 }
 
-function getDetails(uid){
+async function getDetails(uid){
     let req = new Request("/api/users/" + uid, {
         method: 'GET',
         headers: {
@@ -131,7 +131,7 @@ function getDetails(uid){
         }
     })
 
-    fetch(req)
+    await fetch(req)
         .then(response => {
             console.log(response)
             if (response.status === 200){
@@ -158,19 +158,19 @@ function getDetails(uid){
         return false
 }
 
-async function checkLoggedIn(){
+function checkLoggedIn(){
     cookies = document.cookie.split('; ')
     for (let i = 0; i < cookies.length; i++){
         data = cookies[i].split('=')
         if (data[0] === 'uid' && data[1]){
             uid = data[1]
-            return await getDetails(uid)
+            return getDetails(uid)
         }
     }
     return false
 }
 
-function checkLoginData(data){
+async function checkLoginData(data){
     let req = new Request("/api/login", {
         method: 'POST',
         body: JSON.stringify(data),
@@ -179,7 +179,7 @@ function checkLoginData(data){
         }
     })
 
-    fetch(req)
+    await fetch(req)
         .then(response => {
             if (response.status === 200){
                 console.log("request ok")
@@ -207,7 +207,7 @@ function checkLoginData(data){
         .catch(e => console.log(e))
 }
 
-function loginUser(){
+async function loginUser(){
     console.log('clicked')
 
     alert = document.getElementById('alertDiv')
@@ -225,7 +225,7 @@ function loginUser(){
 
     console.log(data)
 
-    checkLoginData(data)
+    await checkLoginData(data)
 
     console.log('done')
 }
@@ -242,17 +242,17 @@ function login(){
     document.getElementById('loginButton').addEventListener('click', loginUser)
 }
 
-function postProjectData(data){
+async function postProjectData(data){
     let req = new Request("/api/projects", {
         method: 'POST',
         body: JSON.stringify(data),
-        credentials: 'same-origin',
+        credentials: 'include',
         headers: {
             'Content-Type': 'application/json'
         }
     })
 
-    fetch(req)
+    await fetch(req)
         .then(response => {
             if (response.status === 200){
                 console.log("request ok")
@@ -280,7 +280,7 @@ function postProjectData(data){
         .catch(e => console.log(e))
 }
 
-function newProject(){
+async function newProject(){
     console.log('clicked')
 
     alert = document.getElementById('alertDiv')
@@ -306,14 +306,14 @@ function newProject(){
 
     console.log(data)
 
-    postProjectData(data)
+    await postProjectData(data)
 
     console.log('done')
 }
 
 function createProject(){
     if (!checkLoggedIn()){
-        window.location = "/project-explorer/login.html"
+        window.location = "/project-explorer/index.html"
     }
     console.log('create project page')
     document.getElementById('continue').addEventListener('click', newProject)
