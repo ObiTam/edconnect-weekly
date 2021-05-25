@@ -32,20 +32,22 @@
         <br>
 
         <main class="container">
-            <div class="mx-auto w-75">
+            <form class="mx-auto w-75" name="submitProject" id="createProjectForm">
                 <h1>Submit Project</h1>
-                <form name="submitProject">
-                    <label class="form-label">Project Name</label><input class="form-control" type="text" name="name" value="Enter project name"/>
 
-                    <label class="form-label">Project Abstract</label>
-                    <textarea class="form-control" name="abstract" rows="10"></textarea>
+                <div class="alert alert-danger" style="display: none;" id="alertDiv" role="alert">
+                </div>
 
-                    <label class="form-label">Author(s)</label> <input class="form-control" type="text" name="authors" value="Enter author names (seperated by comma)" />
-                    <label class="form-label">Tag(s)</label> <input class="form-control" type="text" name="tags" value="Use # to tag project with different topics (e.g #javascript #mongodb)"/>
-                    <br>
-                    <button class="btn btn-primary" type="button">Continue</button>
-                </form>                
-            </div>
+                <label class="form-label">Project Name</label><input class="form-control" type="text" id="name" name="name" placeholder="Enter project name"/>
+
+                <label class="form-label">Project Abstract</label>
+                <textarea class="form-control" id="abstract" name="abstract" rows="10"></textarea>
+
+                <label class="form-label">Author(s)</label> <input class="form-control" type="text" id="authors" name="authors" placeholder="Enter author names (seperated by comma)" />
+                <label class="form-label">Tag(s)</label> <input class="form-control" type="text" id="tags" name="tags" placeholder="Use # to tag project with different topics (e.g #javascript #mongodb)"/>
+                <br>
+                <button class="btn btn-primary" type="button" id= "continue">Continue</button>
+            </form>        
         </main>
 
         <br>

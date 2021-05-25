@@ -1,4 +1,4 @@
-async function updatePrograms(){   
+function updatePrograms(){   
     let req = new Request("/api/programs", {
         method: 'GET',
         headers: {
@@ -6,7 +6,7 @@ async function updatePrograms(){
         }
     })
 
-    await fetch(req)
+    fetch(req)
         .then(response => response.json())
         .then(data => {
             console.log('gotten programs')
@@ -19,7 +19,7 @@ async function updatePrograms(){
         })
 }
 
-async function updateGraduationYears(){   
+function updateGraduationYears(){   
     let req = new Request("/api/graduationYears", {
         method: 'GET',
         headers: {
@@ -27,7 +27,7 @@ async function updateGraduationYears(){
         }
     })
 
-    await fetch(req)
+    fetch(req)
         .then(response => response.json())
         .then(data => {
             console.log('gotten years')
@@ -40,7 +40,7 @@ async function updateGraduationYears(){
         })
 }
 
-async function postUserData(data){
+function postUserData(data){
     let req = new Request("/api/register", {
         method: 'POST',
         body: JSON.stringify(data),
@@ -49,7 +49,7 @@ async function postUserData(data){
         }
     })
 
-    await fetch(req)
+    fetch(req)
         .then(response => {
             if (response.status === 200){
                 console.log("request ok")
@@ -79,7 +79,7 @@ async function postUserData(data){
         .catch(e => console.log(e))
 }
 
-async function signupUser(){
+function signupUser(){
     console.log('clicked')
 
     alert = document.getElementById('alertDiv')
@@ -102,7 +102,7 @@ async function signupUser(){
 
     console.log(data)
 
-    await postUserData(data)
+    postUserData(data)
 
     console.log('done')
 }
@@ -123,7 +123,7 @@ function switchToLoggedOut(){
     console.log(done)
 }
 
-async function getDetails(uid){
+function getDetails(uid){
     let req = new Request("/api/users/" + uid, {
         method: 'GET',
         headers: {
@@ -131,7 +131,7 @@ async function getDetails(uid){
         }
     })
 
-    await fetch(req)
+    fetch(req)
         .then(response => {
             console.log(response)
             if (response.status === 200){
@@ -146,6 +146,7 @@ async function getDetails(uid){
             if (data){
                 document.getElementById('username').textContent += ', ' + data.firstname
                 switchToLoggedIn()
+                return true
             }
             else{
                 throw new Error('invalid user id')
@@ -154,6 +155,7 @@ async function getDetails(uid){
         .catch(
             e => console.log(e)
         )
+        return false
 }
 
 function checkLoggedIn(){
@@ -162,13 +164,13 @@ function checkLoggedIn(){
         data = cookies[i].split('=')
         if (data[0] === 'uid' && data[1]){
             uid = data[1]
-            getDetails(uid)
-            break
+            return getDetails(uid)
         }
     }
+    return false
 }
 
-async function checkLoginData(data){
+function checkLoginData(data){
     let req = new Request("/api/login", {
         method: 'POST',
         body: JSON.stringify(data),
@@ -177,7 +179,7 @@ async function checkLoginData(data){
         }
     })
 
-    await fetch(req)
+    fetch(req)
         .then(response => {
             if (response.status === 200){
                 console.log("request ok")
@@ -205,7 +207,7 @@ async function checkLoginData(data){
         .catch(e => console.log(e))
 }
 
-async function loginUser(){
+function loginUser(){
     console.log('clicked')
 
     alert = document.getElementById('alertDiv')
@@ -223,7 +225,7 @@ async function loginUser(){
 
     console.log(data)
 
-    await checkLoginData(data)
+    checkLoginData(data)
 
     console.log('done')
 }
@@ -240,10 +242,88 @@ function login(){
     document.getElementById('loginButton').addEventListener('click', loginUser)
 }
 
+function postProjectData(data){
+    let req = new Request("/api/projects", {
+        method: 'POST',
+        body: JSON.stringify(data),
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+
+    fetch(req)
+        .then(response => {
+            if (response.status === 200){
+                console.log("request ok")
+                return response.json()
+            }
+            else{
+                console.log("request bad")
+                return response.json()
+            }
+        })
+        .then(data => {
+            if(data.status === 'ok'){
+                console.log(data)
+                window.location = "/project-explorer/index.html"
+            }
+            else{
+                alert = document.getElementById("alertDiv")
+                data.errors.forEach((e) => {
+                    alert.innerHTML += e + "<br>"
+                })
+                alert.style.display = "block"
+                throw new Error("This request was bad \n status: " + data.status + " \n")
+            }
+        })
+        .catch(e => console.log(e))
+}
+
+function newProject(){
+    console.log('clicked')
+
+    alert = document.getElementById('alertDiv')
+    alert.style.display = "none"
+    alert.innerHTML= ""
+
+    let data = {}
+    const names = ["name", "abstract"]
+    
+    names.forEach((name) => {
+        el = document.getElementById(name)
+        data[name] = el.value
+        el.value = ""
+    })
+
+    el = document.getElementById('authors')
+    data['authors'] = el.value.split(',')
+    el.value = ""
+
+    el = document.getElementById('tags')
+    data['tags'] = el.value.split(' ')
+    el.value = ""
+
+    console.log(data)
+
+    postProjectData(data)
+
+    console.log('done')
+}
+
+function createProject(){
+    if (!checkLoggedIn()){
+        window.location = "/project-explorer/index.html"
+    }
+    console.log('create project page')
+    document.getElementById('continue').addEventListener('click', newProject)
+}
+
 window.onload = () => {
     checkLoggedIn()
     document.getElementById('logout').addEventListener("click", switchToLoggedOut)
     
     if (window.location.pathname.includes("register.html")){register()}
     if (window.location.pathname.includes("login.html")){login()}
+    if (window.location.pathname.includes("createproject.html")){createProject()}
 }
