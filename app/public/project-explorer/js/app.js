@@ -158,13 +158,13 @@ function getDetails(uid){
         return false
 }
 
-function checkLoggedIn(){
+async function checkLoggedIn(){
     cookies = document.cookie.split('; ')
     for (let i = 0; i < cookies.length; i++){
         data = cookies[i].split('=')
         if (data[0] === 'uid' && data[1]){
             uid = data[1]
-            return getDetails(uid)
+            return await getDetails(uid)
         }
     }
     return false
@@ -313,7 +313,7 @@ function newProject(){
 
 function createProject(){
     if (!checkLoggedIn()){
-        window.location = "/project-explorer/index.html"
+        window.location = "/project-explorer/login.html"
     }
     console.log('create project page')
     document.getElementById('continue').addEventListener('click', newProject)
