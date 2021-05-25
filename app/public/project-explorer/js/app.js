@@ -1,4 +1,4 @@
-async function updatePrograms(){   
+function updatePrograms(){   
     let req = new Request("/api/programs", {
         method: 'GET',
         headers: {
@@ -6,7 +6,7 @@ async function updatePrograms(){
         }
     })
 
-    await fetch(req)
+    fetch(req)
         .then(response => response.json())
         .then(data => {
             console.log('gotten programs')
@@ -19,7 +19,7 @@ async function updatePrograms(){
         })
 }
 
-async function updateGraduationYears(){   
+function updateGraduationYears(){   
     let req = new Request("/api/graduationYears", {
         method: 'GET',
         headers: {
@@ -27,7 +27,7 @@ async function updateGraduationYears(){
         }
     })
 
-    await fetch(req)
+    fetch(req)
         .then(response => response.json())
         .then(data => {
             console.log('gotten years')
@@ -49,7 +49,7 @@ async function postUserData(data){
         }
     })
 
-    await fetch(req)
+    return await fetch(req)
         .then(response => {
             if (response.status === 200){
                 console.log("request ok")
@@ -65,7 +65,7 @@ async function postUserData(data){
                 console.log(data)
                 document.cookie = "uid=" + data.data.id
                 console.log(document.cookie)
-                window.location = "/project-explorer/index.html"
+                return true
             }
             else{
                 alert = document.getElementById("alertDiv")
@@ -76,7 +76,11 @@ async function postUserData(data){
                 throw new Error("This request was bad \n status: " + data.status + " \n")
             }
         })
-        .catch(e => console.log(e))
+        .catch(e => {
+            console.log(e)
+            return false
+        })
+        
 }
 
 async function signupUser(){
@@ -101,13 +105,64 @@ async function signupUser(){
     })
 
     console.log(data)
-
-    await postUserData(data)
+    test = await postUserData(data)
+    if (test){
+        window.location = "/project-explorer/index.html"
+            
+    }
 
     console.log('done')
 }
 
-function switchToLoggedIn(){
+async function getDetails(uid){
+    let req = new Request("/api/users/" + uid, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+
+    return await fetch(req)
+        .then(response => {
+            console.log(response)
+            if (response.status === 200){
+                return response.json()
+            }
+            else{
+                throw new Error('invalid request')
+            }
+        })
+        .then(data => {
+            console.log('end json conversion')
+            if (data){
+                console.log(data)
+                return data
+            }
+            else{
+                throw new Error('invalid user id')
+            }
+        })
+        .catch(e => {
+            console.log(e)
+            return false
+        })
+}
+
+function getUID(){
+    cookies = document.cookie.split('; ')
+    for (let i = 0; i < cookies.length; i++){
+        data = cookies[i].split('=')
+        if (data[0] === 'uid' && data[1]){
+            uid = data[1]
+            return uid
+            }
+            break
+        }
+    return null
+}
+
+function switchToLoggedIn(data){
+    document.getElementById('username').textContent += ', ' + data.firstname
     document.getElementById('signup').style.display = 'none'
     document.getElementById('logout').style.display = 'block'
     document.getElementById('login').style.display = 'none'
@@ -119,55 +174,22 @@ function switchToLoggedOut(){
     document.getElementById('logout').style.display = 'none'
     document.getElementById('login').style.display = 'block'
     document.getElementById('username').style.display = 'none'
+    document.getElementById('username').textContent = 'Hi'
     document.cookie = 'uid=; expires=Thu 01 Jan 1970T00:00:00Z;' 
     console.log(done)
 }
 
-async function getDetails(uid){
-    let req = new Request("/api/users/" + uid, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-
-    await fetch(req)
-        .then(response => {
-            console.log(response)
-            if (response.status === 200){
-                return response.json()
-            }
-            else{
-                throw new Error('invalid request')
-            }
-        })
-        .then(data => {
-            console.log(data)
-            if (data){
-                document.getElementById('username').textContent += ', ' + data.firstname
-                switchToLoggedIn()
-                return true
-            }
-            else{
-                throw new Error('invalid user id')
-            }
-        })
-        .catch(
-            e => console.log(e)
-        )
-        return false
-}
-
-function checkLoggedIn(){
-    cookies = document.cookie.split('; ')
-    for (let i = 0; i < cookies.length; i++){
-        data = cookies[i].split('=')
-        if (data[0] === 'uid' && data[1]){
-            uid = data[1]
-            return getDetails(uid)
+async function checkLoggedIn(){
+    uid = getUID()
+    console.log('uid = ' + uid)
+    if (uid){
+        data = await getDetails(uid)
+        console.log('gotten data')
+        if(data){
+            return data
         }
     }
-    return false
+    return null
 }
 
 async function checkLoginData(data){
@@ -179,7 +201,7 @@ async function checkLoginData(data){
         }
     })
 
-    await fetch(req)
+    return await fetch(req)
         .then(response => {
             if (response.status === 200){
                 console.log("request ok")
@@ -195,7 +217,7 @@ async function checkLoginData(data){
                 console.log(data)
                 document.cookie = "uid=" + data.data.id
                 console.log(document.cookie)
-                window.location = "/project-explorer/index.html"
+                return data
             }
             else{
                 alert = document.getElementById("alertDiv")
@@ -204,7 +226,10 @@ async function checkLoginData(data){
                 throw new Error("This request was bad \n status: " + data.status + " \n")
             }
         })
-        .catch(e => console.log(e))
+        .catch(e => {
+            console.log(e)
+            return null
+        })
 }
 
 async function loginUser(){
@@ -214,35 +239,27 @@ async function loginUser(){
     alert.style.display = "none"
     alert.innerHTML= ""
 
-    let data = {}
+    let loginData = {}
     const names = ["email", "password"]
     
     names.forEach((name) => {
         el = document.getElementById(name)
-        data[name] = el.value
+        loginData[name] = el.value
         el.value = ""
     })
 
-    console.log(data)
+    console.log(loginData)
 
-    await checkLoginData(data)
+    userData = await checkLoginData(loginData)
+    if (userData){
+        switchToLoggedIn(userData)
+        window.location = "/project-explorer/index.html"
+    }
 
     console.log('done')
 }
 
-function register(){
-    console.log('register page')
-    document.getElementById('signupButton').addEventListener('click', signupUser)
-    updatePrograms()
-    updateGraduationYears()
-}
-
-function login(){
-    console.log('login page')
-    document.getElementById('loginButton').addEventListener('click', loginUser)
-}
-
-async function postProjectData(data){
+function postProjectData(data){
     let req = new Request("/api/projects", {
         method: 'POST',
         body: JSON.stringify(data),
@@ -252,7 +269,7 @@ async function postProjectData(data){
         }
     })
 
-    await fetch(req)
+    fetch(req)
         .then(response => {
             if (response.status === 200){
                 console.log("request ok")
@@ -280,7 +297,7 @@ async function postProjectData(data){
         .catch(e => console.log(e))
 }
 
-async function newProject(){
+function newProject(){
     console.log('clicked')
 
     alert = document.getElementById('alertDiv')
@@ -306,24 +323,40 @@ async function newProject(){
 
     console.log(data)
 
-    await postProjectData(data)
+    postProjectData(data)
 
     console.log('done')
 }
 
-function createProject(){
-    if (!checkLoggedIn()){
-        window.location = "/project-explorer/index.html"
+function register(){
+    console.log('register page')
+    document.getElementById('signupButton').addEventListener('click', signupUser)
+    updatePrograms()
+    updateGraduationYears()
+}
+
+function login(){
+    console.log('login page')
+    document.getElementById('loginButton').addEventListener('click', loginUser)
+}
+
+async function createProject(userData){
+    if (!userData){
+        window.location = "/project-explorer/login.html"
     }
     console.log('create project page')
     document.getElementById('continue').addEventListener('click', newProject)
 }
 
-window.onload = () => {
-    checkLoggedIn()
-    document.getElementById('logout').addEventListener("click", switchToLoggedOut)
+window.onload = async () => {
+    data = await checkLoggedIn()
+    if(data){
+        console.log('logged in')
+        switchToLoggedIn(data)
+    }
     
+    document.getElementById('logout').addEventListener("click", switchToLoggedOut)
     if (window.location.pathname.includes("register.html")){register()}
     if (window.location.pathname.includes("login.html")){login()}
-    if (window.location.pathname.includes("createproject.html")){createProject()}
+    if (window.location.pathname.includes("createproject.html")){createProject(data)}
 }
