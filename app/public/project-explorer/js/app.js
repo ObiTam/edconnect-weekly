@@ -263,10 +263,10 @@ function postProjectData(data){
     let req = new Request("/api/projects", {
         method: 'POST',
         body: JSON.stringify(data),
-        credentials: 'include',
         headers: {
             'Content-Type': 'application/json'
-        }
+        },
+        credentials: 'include'
     })
 
     fetch(req)
