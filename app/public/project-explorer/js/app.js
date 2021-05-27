@@ -267,7 +267,7 @@ async function loginUser(){
     console.log('done')
 }
 
-function postProjectData(data){
+async function postProjectData(data){
     let req = new Request("/api/projects", {
         method: 'POST',
         body: JSON.stringify(data),
@@ -276,7 +276,7 @@ function postProjectData(data){
         }
     })
 
-    fetch(req)
+    return await fetch(req)
         .then(response => {
             if (response.status === 200){
                 console.log("request ok")
@@ -290,7 +290,7 @@ function postProjectData(data){
         .then(data => {
             if(data.status === 'ok'){
                 console.log(data)
-                window.location = "/project-explorer/index.html"
+                return true
             }
             else{
                 alert = document.getElementById("alertDiv")
@@ -301,10 +301,13 @@ function postProjectData(data){
                 throw new Error("This request was bad \n status: " + data.status + " \n")
             }
         })
-        .catch(e => console.log(e))
+        .catch(e => {
+            console.log(e)
+            return false
+        })
 }
 
-function newProject(){
+async function newProject(){
     console.log('clicked')
 
     alert = document.getElementById('alertDiv')
@@ -330,7 +333,10 @@ function newProject(){
 
     console.log(data)
 
-    postProjectData(data)
+    good = await postProjectData(data)
+    if(good){
+        window.location = "/project-explorer/index.html"
+    }
 
     console.log('done')
 }
