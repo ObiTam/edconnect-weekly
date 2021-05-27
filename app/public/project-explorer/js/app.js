@@ -63,7 +63,7 @@ async function postUserData(data){
         .then(data => {
             if(data.status === 'ok'){
                 console.log(data)
-                document.cookie = "uid=" + data.data.id
+                setUID(data)
                 console.log(document.cookie)
                 return true
             }
@@ -149,16 +149,24 @@ async function getDetails(uid){
 }
 
 function getUID(){
-    cookies = document.cookie.split('; ')
+    cookies = document.cookie.split(';')
     for (let i = 0; i < cookies.length; i++){
-        data = cookies[i].split('=')
+        data = cookies[i].trim().split('=')
         if (data[0] === 'uid' && data[1]){
-            uid = data[1]
+            let uid = data[1]
             return uid
             }
             break
         }
     return null
+}
+
+function setUID(data){
+    document.cookie = "uid=" + data.data.id + "; path=/"
+}
+
+function resetUID(){
+    document.cookie = 'uid=; expires=Thu 01 Jan 1970T00:00:00Z; path=/;' 
 }
 
 function switchToLoggedIn(data){
@@ -175,7 +183,7 @@ function switchToLoggedOut(){
     document.getElementById('login').style.display = 'block'
     document.getElementById('username').style.display = 'none'
     document.getElementById('username').textContent = 'Hi'
-    document.cookie = 'uid=; expires=Thu 01 Jan 1970T00:00:00Z;' 
+    resetUID()
     console.log(done)
 }
 
@@ -215,7 +223,7 @@ async function checkLoginData(data){
         .then(data => {
             if(data.status === 'ok'){
                 console.log(data)
-                document.cookie = "uid=" + data.data.id
+                setUID(data)
                 console.log(document.cookie)
                 return data
             }
@@ -265,8 +273,7 @@ function postProjectData(data){
         body: JSON.stringify(data),
         headers: {
             'Content-Type': 'application/json'
-        },
-        credentials: 'include'
+        }
     })
 
     fetch(req)
