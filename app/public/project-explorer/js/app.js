@@ -341,6 +341,24 @@ async function newProject(){
     console.log('done')
 }
 
+async function getProjectList(){
+    let req = new Request("/api/projects", {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+
+    return await fetch(req)
+        .then(response => response.json())
+        .then(data => {
+            console.log('gotten projects')
+            return data
+            } 
+        )
+        .catch(e => console.log(e))
+}
+
 function register(){
     console.log('register page')
     document.getElementById('signupButton').addEventListener('click', signupUser)
@@ -353,12 +371,48 @@ function login(){
     document.getElementById('loginButton').addEventListener('click', loginUser)
 }
 
-async function createProject(userData){
+function createProject(userData){
     if (!userData){
         window.location = "/project-explorer/login.html"
     }
     console.log('create project page')
     document.getElementById('continue').addEventListener('click', newProject)
+}
+
+async function index(){
+    projects = await getProjectList()
+    console.log(projects.length)
+    console.log((projects.length < 4 ? projects.length : 4))
+    for (let i=0; i < (projects.length < 4 ? projects.length : 4); i++){
+        console.log(i)
+        project = projects[i]
+        console.log(project)
+
+        document.getElementById('project'+(i+1)).style.visibility = 'visible'
+        
+        title = document.getElementById('title'+(i+1))
+        title.href = '/project-explorer/viewproject.html?id='+project.id
+        title.firstElementChild.textContent = project['name']
+
+        authors = document.getElementById('authors'+(i+1))
+        authors.textContent = ''
+        for(var j = 0; j < project['authors'].length-1; j++){
+            authors.textContent += project['authors'][j] + ', '
+        }
+        authors.textContent += project['authors'][j] // confirm this i
+
+        document.getElementById('abstract'+(i+1)).textContent = project['abstract']
+
+        tags = document.getElementById('tags'+(i+1))
+        tags.innerHTML = ''
+        for(var k = 0; k < project['tags'].length; k++){
+            tags.innerHTML += "<a class='card-link'>" + project['tags'][k] + "</a>"
+        }
+    }
+
+    for (var i=projects.length; i<4; i++){
+        document.getElementById('project'+(i+1)).style.visibility = 'hidden'
+    }
 }
 
 window.onload = async () => {
@@ -369,6 +423,7 @@ window.onload = async () => {
     }
     
     document.getElementById('logout').addEventListener("click", switchToLoggedOut)
+    if (window.location.pathname.includes("index.html")){index()}
     if (window.location.pathname.includes("register.html")){register()}
     if (window.location.pathname.includes("login.html")){login()}
     if (window.location.pathname.includes("createproject.html")){createProject(data)}
