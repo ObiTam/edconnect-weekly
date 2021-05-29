@@ -359,6 +359,46 @@ async function getProjectList(){
         .catch(e => console.log(e))
 }
 
+async function getProject(id){
+    let req = new Request("/api/projects/"+id, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+
+    return await fetch(req)
+        .then(response => response.json())
+        .then(data => {
+            console.log('gotten project')
+            return data
+            } 
+        )
+        .catch(e => console.log(e))
+}
+
+async function getCreator(id){
+    let req = new Request("/api/users/"+id, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+
+    return await fetch(req)
+        .then(response => {
+            console.log(response)
+            return response.json()
+        })
+        .then(data => {
+            console.log('gotten creator')
+            console.log(data)
+            return data
+            } 
+        )
+        .catch(e => console.log(e))
+}
+
 function register(){
     console.log('register page')
     document.getElementById('signupButton').addEventListener('click', signupUser)
@@ -399,7 +439,7 @@ async function index(){
         for(var j = 0; j < project['authors'].length-1; j++){
             authors.textContent += project['authors'][j] + ', '
         }
-        authors.textContent += project['authors'][j] // confirm this i
+        authors.textContent += project['authors'][j]
 
         document.getElementById('abstract'+(i+1)).textContent = project['abstract']
 
@@ -415,6 +455,35 @@ async function index(){
     }
 }
 
+async function viewProject(){
+    console.log('view project page')
+
+    id = window.location.search.slice(4)
+    console.log(id)
+
+    project = await getProject(id)
+    console.log(project)
+
+    document.getElementById('project_name').textContent = project.name
+    document.getElementById('project_abstract').textContent = project.abstract
+
+    authors = document.getElementById('project_authors')
+    authors.innerHTML = ''
+    for(var j = 0; j < project['authors'].length; j++){
+        authors.innerHTML += "<li class='list-group-item'>" + project['authors'][j] + "</li>"
+    }
+
+    tags = document.getElementById('project_tags')
+    tags.innerHTML = ''
+    for(var j = 0; j < project['tags'].length; j++){
+        tags.innerHTML += "<a href='#' class='card-link'>" + project['tags'][j] + "</a>"
+    }
+
+    creator = await getCreator(project.createdBy)
+    createdBy = document.getElementById('project_author')
+    createdBy.innerHTML = "Created By <br>" + creator.firstname + ' ' + creator.lastname
+}
+
 window.onload = async () => {
     data = await checkLoggedIn()
     if(data){
@@ -427,4 +496,5 @@ window.onload = async () => {
     if (window.location.pathname.includes("register.html")){register()}
     if (window.location.pathname.includes("login.html")){login()}
     if (window.location.pathname.includes("createproject.html")){createProject(data)}
+    if (window.location.pathname.includes("viewproject.html")){viewProject(data)}
 }

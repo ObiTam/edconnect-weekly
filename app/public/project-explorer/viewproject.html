@@ -32,9 +32,9 @@
         <br>
 
         <main class="container">
-            <h1>Project 1</h1>
+            <h1 id="project_name">Project 1</h1>
             <section class="row bg-light p-3">
-                <div class="col">Created by <br>Jane Doe</div>
+                <div class="col" id="project_author">Created by <br>Jane Doe</div>
                 <div class="col">Date Created <br>00/00/0000</div> 
                 <div class="col">Last Updated <br>01/01/0001</div>
                 <a class="btn btn-primary justify-self-end" href="editproject.html">Edit Project</a>
@@ -45,7 +45,7 @@
                 <section class="col">
                     <h4>Project Abstract</h4>
                     <br>
-                    <p>
+                    <p id="project_abstract">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                     </p>
                     <br>
@@ -68,10 +68,10 @@
                     <h4>Project Details</h4>
                     <div class="card">
                         <h5 class="card-header">Author(s)</h5>
-                        <div class="card-body">
-                            John Doe
-                        </div>
-                        <div class="card-footer">
+                        <ul class="list-group list-group-flush" id="project_authors">
+                            <li class="list-group-item">John Doe</li>
+                        </ul>
+                        <div class="card-footer" id="project_tags">
                             <a href="#" class="card-link">#web</a>
                         </div>
                     </div>
