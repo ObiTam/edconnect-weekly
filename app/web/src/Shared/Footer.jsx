@@ -2,9 +2,9 @@ import React from 'react';
 
 const Footer = () => {
     return (
-        <div>
-            This is the Footer
-        </div>
+        <footer className="d-flex justify-content-end">
+            <p className="text-muted">Project Explorer &copy; 2020 -<strong>Edconnect</strong></p>
+        </footer>
     )
 }
 
