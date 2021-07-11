@@ -1,25 +1,28 @@
 import React from 'react';
+import {
+    Navbar,
+    NavbarBrand,
+    Nav,
+    FormControl,
+    Button
+} from 'react-bootstrap'
 
 const Header = () => {
     return (
-        <nav className="navbar navbar-expand-md navbar-dark bg-primary">
-            <a className="navbar-brand" href="index.html">Project Explorer</a>
-            <form className="form-inline" name="searchForm">
-                <input className="form-control" type="text" value="Search Projects" />
-                <button className="btn btn-primary btn-outline-light" type="button" value="Search" placeholder="search">Search</button>
-                <input className="btn btn-primary" type="submit" value="Submit" />
-            </form>
-            <ul className="navbar-nav ml-auto">
-                <li className="nav-item">
-                    <a className="nav-link" id="signup" href="register.html">Signup</a>
-                    <a className="nav-link" style={{ display: 'none' }} id="logout" href="index.html">Logout</a>
-                </li>
-                <li className="nav-item">
-                    <a className="nav-link" id="login" href="login.html">Login</a>
-                    <span className="navbar-text" id="username" style={{ display: 'none' }} href="index.html">Hi</span>
-                </li>
-            </ul>
-        </nav>
+        <Navbar bg="primary" variant="dark">
+            <NavbarBrand href="index.html">Project Explorer</NavbarBrand>
+            <Nav>
+                <FormControl type="text" placeholder="Search Projects" inline />
+                <Button variant="outline-light" inline>Search</Button>
+                <Button inline >Submit</Button>
+            </Nav>
+            <Nav style={{ marginLeft: 'auto' }}>
+                <Nav.Link id="signup" href="register.html">Signup</Nav.Link>
+                <Nav.Link style={{ display: 'none' }} id="logout" href="index.html">Logout</Nav.Link>
+                <Nav.Link id="login" href="login.html">Login</Nav.Link>
+                <Nav.Item className="navbar-text" id="username" style={{ display: 'none' }} href="index.html">Hi</Nav.Item>
+            </ Nav>
+        </Navbar>
     )
 }
 
