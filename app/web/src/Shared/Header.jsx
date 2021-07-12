@@ -9,7 +9,7 @@ import {
 
 const Header = () => {
     return (
-        <Navbar bg="primary" variant="dark">
+        <Navbar bg="primary" variant="dark" style={{padding: '0.5rem'}}>
             <NavbarBrand href="index.html">Project Explorer</NavbarBrand>
             <Nav>
                 <FormControl type="text" placeholder="Search Projects" inline />
